@@ -24,7 +24,7 @@ export class AuthorizatedGuard
   implements CanActivate, CanActivateChild, CanDeactivate<unknown>, CanLoad
 {
   helper = new JwtHelperService();
-  token: string | null;
+  token: string | null = null;
 
   constructor(
     private router: Router,
@@ -96,7 +96,7 @@ export class AuthorizatedGuard
 
   private InvalidRole(route: ActivatedRouteSnapshot): boolean {
     this.token = window.localStorage.getItem('access_token');
-    let user = this.helper.decodeToken(this.token);
+    let user = this.helper.decodeToken(this.token!);
     if (
       route.data['roles'] &&
       route.data['roles'].indexOf(user.info.userType) === -1

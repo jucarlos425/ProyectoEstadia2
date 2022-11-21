@@ -10,12 +10,12 @@ import { Data } from '../interfaces/usuarios';
   providedIn: 'root',
 })
 export class AuthService {
-  token: string;
+  token: string | null = null;
   helper = new JwtHelperService();
   userInfo: Data;
   constructor(private _httpClient: HttpClient, private router: Router) {
     this.token = window.localStorage.getItem('access_token');
-    this.userInfo = this.helper.decodeToken(this.token);
+    this.userInfo = this.helper.decodeToken(this.token!);
   }
 
   private _authenticated: boolean = false;
@@ -35,6 +35,7 @@ export class AuthService {
     // Set the authenticated flag to true
     this._authenticated = true;
     this.userInfo = this.helper.decodeToken(token);
+    return
   }
 
   signInUsingToken(): Observable<any> {
