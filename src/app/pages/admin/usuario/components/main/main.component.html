@@ -1,1 +1,37 @@
-<p>main works!</p>
+
+
+<nz-table #basicTable [nzData]="dataSet">
+  <thead>
+    <tr>
+      <th>Acciones</th>
+      <th>Usuario</th>
+      <th>Correo</th>
+      <th>Rol</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of basicTable.data">
+      <td>
+        
+      <button 
+      nz-button 
+      nzType="danger">Eliminar
+      (click)="delete(data.id)"
+      </button>
+      </td>
+      <td>{{data.usuario}}</td>
+      <td>{{data.correo}}</td>
+      <td>{{data.rol}}</td>
+  </tbody>
+</nz-table>
+
+<ng-template #update>
+  <app-update></app-update>
+
+</ng-template>
+
+<ng-template #create>
+  <app-create></app-create>
+
+</ng-template>
+

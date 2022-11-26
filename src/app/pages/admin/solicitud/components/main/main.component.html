@@ -1,1 +1,54 @@
-<p>main works!</p>
+<button 
+  nz-button 
+  nzType="primary">Crear
+  (click)="openDrawer(create, 'crear solicitud', null)"
+</button>
+      
+
+<nz-table #basicTable [nzData]="dataSet">
+  <thead>
+    <tr>
+      <th>Acciones</th>
+      <th>Tipo</th>
+      <th>Fecha</th>
+      <th>Primera vez</th>
+      <th>Tercera oportunidad</th>
+      <th>Aprobó 2 parciales</th>
+      <th>Comprobante</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of basicTable.data">
+      <td>
+        <button 
+        nz-button 
+        nzType="default">Editar
+        (click)="openDrawer(update, 'editar solicitud', data)"
+       </button>
+      <button 
+      nz-button 
+      nzType="danger">Eliminar
+      (click)="delete(data.id)"
+      </button>
+      </td>
+      <td>{{data.acciones}}</td>
+      <td>{{data.tipo}}</td>
+      <td>{{data.fecha}}</td>
+      <td>{{data.primeraVez}}</td>
+      <td>{{data.terceraOportunidad}}</td>
+      <td>{{data.aproboDosParciales}}</td>
+      <td>{{data.comprobante}}</td>
+    </tr>
+  </tbody>
+</nz-table>
+
+<ng-template #update>
+  <app-update></app-update>
+
+</ng-template>
+
+<ng-template #create>
+  <app-create></app-create>
+
+</ng-template>
+
