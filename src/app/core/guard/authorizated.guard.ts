@@ -84,7 +84,7 @@ export class AuthorizatedGuard
 
   private ExpiredToken(): boolean {
     if (this.helper.isTokenExpired(this.AuthService.getToken())) {
-      this.router.navigateByUrl('login');
+      this.router.navigateByUrl('auth/login');
       this.createNotification(
         'info',
         'Su sesión ha expirado, vuelva a iniciar sesión'

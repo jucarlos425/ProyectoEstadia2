@@ -8,7 +8,7 @@ import {
 import { Injectable } from '@angular/core';
 import { throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { environment } from 'src/environments/environment';
+import { environment } from '../../../environments/environment';
 import { AuthService } from '../services/auth.service';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 
