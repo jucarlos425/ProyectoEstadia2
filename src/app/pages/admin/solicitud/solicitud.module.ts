@@ -5,6 +5,7 @@ import { CreateComponent } from './components/create/create.component';
 import { UpdateComponent } from './components/update/update.component';
 import { RouterModule, Routes } from '@angular/router';
 
+
 const routes: Routes = [{ path: '', component: MainComponent }];
 
 @NgModule({

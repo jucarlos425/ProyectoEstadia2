@@ -1,1 +1,24 @@
-<p>create works!</p>
+<form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+    <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="usuario" nzRequired>Usuario</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="ingresa tu usuario!">
+          <input nz-input placeholder="ingresa tu usuario" formControlName="usuario"/> 
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="correo" nzRequired>Correo</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="ingresa tu correo!">
+          <input nz-input placeholder="ingresa tu correo" formControlName="correo"/> 
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="rol" nzRequired>Rol</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="ingresa tu rol!">
+          <input nz-input placeholder="ingresa tu rol" formControlName="rol"/> 
+        </nz-form-control>
+    </nz-form-item>
+</form>
+<div class="footer">
+  <button nz-button nzType="default" (click)="cancel()" style="margin-right: 8px;">Cancelar</button>
+  <button nz-button nzType="primary" (click)="submitForm()" [disabled]="!fromCreate.valid">Guardar</button>
+</div>

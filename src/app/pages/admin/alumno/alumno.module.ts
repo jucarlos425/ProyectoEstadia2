@@ -7,10 +7,11 @@ import { RouterModule, Routes } from '@angular/router';
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 const routes: Routes = [{ path: '', component: MainComponent }];
 
 @NgModule({
   declarations: [MainComponent, CreateComponent, UpdateComponent],
-  imports: [CommonModule, RouterModule.forChild(routes), NzDrawerModule, NzFormModule, NzInputModule],
+  imports: [CommonModule, RouterModule.forChild(routes), NzDrawerModule, NzFormModule, NzInputModule, NzInputNumberModule],
 })
 export class AlumnoModule {}
