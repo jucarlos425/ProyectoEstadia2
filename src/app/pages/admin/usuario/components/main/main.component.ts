@@ -1,47 +1,57 @@
-import { Component, OnInit } from '@angular/core';
-import { UsuarioService } from '../../services/usuario.service';
-import { UsuarioInterface } from '../../interfaces/usuario';
-import { NzDrawerRef, NzDrawerService } from 'ng-zorro-antd/drawer';
+import { Component, OnInit } from "@angular/core";
+import { UsuarioService } from "../../services/usuario.service";
+import { UsuarioInterface } from "../../interfaces/usuario";
+import { NzDrawerRef, NzDrawerService } from "ng-zorro-antd/drawer";
 
 @Component({
-  selector: 'app-main',
-  templateUrl: './main.component.html',
-  styleUrls: ['./main.component.css']
+  selector: "app-main",
+  templateUrl: "./main.component.html",
+  styleUrls: ["./main.component.css"],
 })
 export class MainComponent implements OnInit {
-
-  constructor(private usuarioService: UsuarioService, private drawerService: NzDrawerService) { }
-
-  dataSet: UsuarioInterface[] = []
-  drawerRef : NzDrawerRef
+  dataSet: UsuarioInterface[] = [];
+  drawerRef!: NzDrawerRef;
+  data!: UsuarioInterface;
+  constructor(
+    private usuarioService: UsuarioService,
+    private drawerService: NzDrawerService
+  ) {}
 
   ngOnInit(): void {
-  this.getData()
+    this.getData();
   }
 
-  getData(): void {
-  	this.usuarioService.getAll().subscribe(
-  		resp => this.dataSet = resp["data"],
-  		error => console.error('error al obtener los usuarios.', error)
-  	)
+  getData() {
+    this.usuarioService.getAll().subscribe(
+      (data: any) => {
+        this.dataSet = data["data"];
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
-  
-  openDrawer(content:any, title:string, data:UsuarioInterface): void {
-	 this.drawerRef = this.drawerService.create({
-      nzContent: content,
+
+  delete(id: number) {
+    this.usuarioService.deleteUsuario(id).subscribe();
+    this.getData();
+  }
+
+  openDrawer(content: any, title: string, data: any) {
+    this.data = data;
+    this.drawerRef = this.drawerService.create({
       nzTitle: title,
-      nzWidht: '70vw',
-      nzClosable: false
-   });
-   this.drawerRef.afterClose.subscribe(() => this.getData());
- }
+      nzContent: content,
+      nzWidth: "70vw",
+      nzClosable: false,
+    });
 
- closeDrawer() {
+    this.drawerRef.afterClose.subscribe(() => {
+      this.getData();
+    });
+  }
+
+  close(e: any) {
     this.drawerRef.close();
- }
-
-delete(id:number): void {
-  this.usuarioService.deleteUsuario(id).subscribe()
-}
-
+  }
 }

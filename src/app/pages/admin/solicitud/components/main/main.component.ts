@@ -1,47 +1,58 @@
-import { Component, OnInit } from '@angular/core';
-import { SolicitudService } from '../../services/solicitud.service';
-import { SolicitudInterface } from '../../interfaces/solicitud';
-import { NzDrawerRef, NzDrawerService } from 'ng-zorro-antd/drawer';
+import { Component, OnInit, Output, EventEmitter, Input } from "@angular/core";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { SolicitudService } from "../../services/solicitud.service";
+import { SolicitudInterface } from "../../interfaces/solicitud";
+import { NzDrawerRef, NzDrawerService } from "ng-zorro-antd/drawer";
 
 @Component({
-  selector: 'app-main',
-  templateUrl: './main.component.html',
-  styleUrls: ['./main.component.css']
+  selector: "app-main",
+  templateUrl: "./main.component.html",
+  styleUrls: ["./main.component.css"],
 })
 export class MainComponent implements OnInit {
-
-  constructor(private solicitudService: SolicitudService, private drawerService: NzDrawerService) { }
-
-  dataSet: SolicitudInterface[] = []
-  drawerRef : NzDrawerRef
+  dataSet: SolicitudInterface[] = [];
+  drawerRef!: NzDrawerRef;
+  data!: SolicitudInterface;
+  constructor(
+    private solicitudService: SolicitudService,
+    private drawerSrv: NzDrawerService
+  ) {}
 
   ngOnInit(): void {
-  this.getData()
+    this.getData();
   }
 
-  getData(): void {
-  	this.solicitudService.getAll().subscribe(
-  		resp => this.dataSet = resp["data"],
-  		error => console.error('error al obtener las solicitudes.', error)
-  	)
+  getData() {
+    this.solicitudService.getAll().subscribe(
+      (data: any) => {
+        this.dataSet = data["data"];
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
-  
-  openDrawer(content:any, title:string, data:SolicitudInterface): void {
-	 this.drawerRef = this.drawerService.create({
-      nzContent: content,
+
+  delete(id: number) {
+    this.solicitudService.deleteSolicitud(id).subscribe();
+    this.getData();
+  }
+
+  openDrawer(content: any, title: string, data: any) {
+    this.data = data;
+    this.drawerRef = this.drawerSrv.create({
       nzTitle: title,
-      nzWidht: '70vw',
-      nzClosable: false
-   });
-   this.drawerRef.afterClose.subscribe(() => this.getData());
- }
+      nzContent: content,
+      nzWidth: "70vw",
+      nzClosable: false,
+    });
 
- closeDrawer() {
+    this.drawerRef.afterClose.subscribe(() => {
+      this.getData();
+    });
+  }
+
+  close(e: any) {
     this.drawerRef.close();
- }
-
-delete(id:number): void {
-  this.solicitudService.deleteSolicitud(id).subscribe()
-}
-
+  }
 }

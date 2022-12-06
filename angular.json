@@ -3,9 +3,13 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "solicitudesUPQ": {
+    "admin-copia": {
       "projectType": "application",
-      "schematics": {},
+      "schematics": {
+        "@schematics/angular:application": {
+          "strict": true
+        }
+      },
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
@@ -13,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/solicitudes-upq",
+            "outputPath": "dist/admin-copia",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -70,10 +74,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "solicitudesUPQ:build:production"
+              "browserTarget": "admin-copia:build:production"
             },
             "development": {
-              "browserTarget": "solicitudesUPQ:build:development"
+              "browserTarget": "admin-copia:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -81,7 +85,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "solicitudesUPQ:build"
+            "browserTarget": "admin-copia:build"
           }
         },
         "test": {
@@ -104,5 +108,6 @@
         }
       }
     }
-  }
+  },
+  "defaultProject": "admin-copia"
 }

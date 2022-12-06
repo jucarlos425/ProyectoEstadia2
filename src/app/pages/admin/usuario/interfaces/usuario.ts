@@ -1,6 +1,6 @@
-export interface SolicitudInterface{
-	id: number;
-	usuario: string;
-	correo: string;
-	rol: string;
+export interface UsuarioInterface {
+  id: number;
+  usuario: string;
+  correo: string;
+  rol: string;
 }

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Injectable } from '@angular/core';
+import { Injectable } from "@angular/core";
 import {
   ActivatedRouteSnapshot,
   CanActivate,
@@ -11,14 +11,14 @@ import {
   RouterStateSnapshot,
   UrlSegment,
   UrlTree,
-} from '@angular/router';
-import { JwtHelperService } from '@auth0/angular-jwt';
-import { Observable, of, switchMap } from 'rxjs';
-import { AuthService } from '../services/auth.service';
-import { NzNotificationService } from 'ng-zorro-antd/notification';
+} from "@angular/router";
+import { JwtHelperService } from "@auth0/angular-jwt";
+import { Observable, of, switchMap } from "rxjs";
+import { AuthService } from "../services/auth.service";
+import { NzNotificationService } from "ng-zorro-antd/notification";
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root",
 })
 export class AuthorizatedGuard
   implements CanActivate, CanActivateChild, CanDeactivate<unknown>, CanLoad
@@ -84,10 +84,10 @@ export class AuthorizatedGuard
 
   private ExpiredToken(): boolean {
     if (this.helper.isTokenExpired(this.AuthService.getToken())) {
-      this.router.navigateByUrl('auth/login');
+      this.router.navigateByUrl("auth/login");
       this.createNotification(
-        'info',
-        'Su sesión ha expirado, vuelva a iniciar sesión'
+        "info",
+        "Su sesión ha expirado, vuelva a iniciar sesión"
       );
       return false;
     }
@@ -95,13 +95,13 @@ export class AuthorizatedGuard
   }
 
   private InvalidRole(route: ActivatedRouteSnapshot): boolean {
-    this.token = window.localStorage.getItem('access_token');
+    this.token = window.localStorage.getItem("access_token");
     let user = this.helper.decodeToken(this.token!);
     if (
-      route.data['roles'] &&
-      route.data['roles'].indexOf(user.info.userType) === -1
+      route.data["roles"] &&
+      route.data["roles"].indexOf(user.info.userType) === -1
     ) {
-      this.router.navigate(['/']);
+      this.router.navigate(["/"]);
       return false;
     }
     return true;

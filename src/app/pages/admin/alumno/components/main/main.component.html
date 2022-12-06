@@ -1,9 +1,9 @@
-<button 
-  nz-button 
-  nzType="primary">Crear
-  (click)="openDrawer(create, 'crear alumno', null)"
+<button
+  nz-button
+  nzType="primary"
+  (click)="openDrawer(create, 'Crear Alumno', null)">
+  Crear
 </button>
-      
 
 <nz-table #basicTable [nzData]="dataSet">
   <thead>
@@ -20,34 +20,30 @@
   <tbody>
     <tr *ngFor="let data of basicTable.data">
       <td>
-        <button 
-        nz-button 
-        nzType="default">Editar
-        (click)="openDrawer(update, 'editar alumno', data)"
-       </button>
-      <button 
-      nz-button 
-      nzType="danger">Eliminar
-      (click)="delete(data.id)"
-      </button>
+        <button
+          nz-button
+          nzType="default"
+          (click)="openDrawer(update, 'Editar Alumno', data)">
+          Editar
+        </button>
+        <button nz-button nzType="primary" nzDanger (click)="delete(data.id)">
+          Eliminar
+        </button>
       </td>
-      <td>{{data.nombre}}</td>
-      <td>{{data.apellidoPaterno}}</td>
-      <td>{{data.apellidoMaterno}}</td>
-      <td>{{data.cuatrimestre}}</td>
-      <td>{{data.carrera}}</td>
-      <td>{{data.matricula}}</td>
+      <td>{{ data.nombre }}</td>
+      <td>{{ data.apellidoPaterno }}</td>
+      <td>{{ data.apellidoMaterno }}</td>
+      <td>{{ data.cuatrimestre }}</td>
+      <td>{{ data.carrera }}</td>
+      <td>{{ data.matricula }}</td>
     </tr>
   </tbody>
 </nz-table>
 
 <ng-template #update>
-  <app-update></app-update>
-
+  <app-edit (close)="close($event)" [data]="data"></app-edit>
 </ng-template>
 
 <ng-template #create>
-  <app-create></app-create>
-
+  <app-create (close)="close($event)"></app-create>
 </ng-template>
-

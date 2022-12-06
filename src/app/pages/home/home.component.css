@@ -1,0 +1,44 @@
+.logo {
+  width: 120px;
+  height: 31px;
+  background: #8c2437;
+  margin: 16px 24px 16px 0;
+  float: left;
+}
+
+[nz-menu] {
+  line-height: 64px;
+}
+
+nz-content {
+  padding: 0 50px;
+  margin: 16px 0;
+}
+
+nz-footer {
+  text-align: center;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+.inner-content {
+  background: #fff;
+  padding: 24px;
+  min-height: 280px;
+}
+
+[nz-carousel-content] {
+  text-align: center;
+  height: 500px;
+  line-height: 500px;
+  background: #364d79;
+  color: #fff;
+  overflow: hidden;
+}
+
+h3 {
+  color: #fff;
+  margin-bottom: 0;
+  user-select: none;
+}

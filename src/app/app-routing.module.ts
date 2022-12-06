@@ -1,116 +1,42 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { AuthorizatedGuard } from './core/guard/authorizated.guard';
-import { NoAuthorizatedGuard } from './core/guard/no-authorizated.guard';
+import { NgModule } from "@angular/core";
+import { RouterModule, Routes } from "@angular/router";
 
-import { AdminComponent } from './layout/admin/admin.component';
-import { BlankComponent } from './layout/blank/blank.component';
-import { LandingComponent } from './pages/landing/landing.component';
+import { AuthorizatedGuard } from "./core/guard/authorizated.guard";
+import { NoAuthorizatedGuard } from "./core/guard/no-authorizated.guard";
 
 const routes: Routes = [
-  // Landing page
+  //* Home Page
   {
-    path: '',
-    component: LandingComponent,
+    path: "",
     canActivate: [NoAuthorizatedGuard],
     canActivateChild: [NoAuthorizatedGuard],
-    children: [
-      {
-        path: '',
-        loadChildren: () =>
-          import('./pages/landing/landing.module').then((m) => m.LandingModule),
-      },
-    ],
+    loadChildren: () =>
+      import("./pages/home/home.module").then((m) => m.HomeModule),
   },
 
-  // Auth routes
+  //* Auth
   {
-    path: 'auth',
-    component: BlankComponent,
+    path: "auth",
     canActivate: [NoAuthorizatedGuard],
     canActivateChild: [NoAuthorizatedGuard],
-    children: [
-      {
-        path: 'login',
-        loadChildren: () =>
-          import('./pages/auth/login/login.module').then((m) => m.LoginModule),
-      },
-      {
-        path: 'logout',
-        loadChildren: () =>
-          import('./pages/auth/logout/logout.module').then(
-            (m) => m.LogoutModule
-          ),
-      },
-      {
-        path: '**',
-        redirectTo: 'login',
-      },
-    ],
+    loadChildren: () =>
+      import("./pages/auth/auth.module").then((m) => m.AuthModule),
   },
 
-  // Admin routes
+  //* Admin
   {
-    path: 'admin',
+    path: "admin",
     canActivate: [AuthorizatedGuard],
     canActivateChild: [AuthorizatedGuard],
-    component: AdminComponent,
-    children: [
-      //* Dashboard
-      {
-        path: 'dashboard',
-        loadChildren: () =>
-          import('./pages/admin/dashboard/dashboard.module').then(
-            (m) => m.DashboardModule
-          ),
-      },
-      //* Alumnos
-      {
-        path: 'alumno',
-        loadChildren: () =>
-          import('./pages/admin/alumno/alumno.module').then(
-            (m) => m.AlumnoModule
-          ),
-      },
-      //* Profesores
-      {
-        path: 'profesor',
-        loadChildren: () =>
-          import('./pages/admin/profesor/profesor.module').then(
-            (m) => m.ProfesorModule
-          ),
-      },
-      //* Solicitudes
-      {
-        path: 'solicitud',
-        loadChildren: () =>
-          import('./pages/admin/solicitud/solicitud.module').then(
-            (m) => m.SolicitudModule
-          ),
-      },
-      //* Turores
-      {
-        path: 'tutor',
-        loadChildren: () =>
-          import('./pages/admin/tutor/tutor.module').then((m) => m.TutorModule),
-      },
-      //* Usuarios
-      {
-        path: 'usuario',
-        loadChildren: () =>
-          import('./pages/admin/usuario/usuario.module').then(
-            (m) => m.UsuarioModule
-          ),
-      },
-      {
-        path: '**',
-        redirectTo: 'dashboard',
-      },
-    ],
+    loadChildren: () =>
+      import("./layout/admin.module").then((m) => m.AdminModule),
   },
 
   //* 404
-  { path: '**', redirectTo: '/', pathMatch: 'full' },
+  {
+    path: "**",
+    redirectTo: "",
+  },
 ];
 
 @NgModule({

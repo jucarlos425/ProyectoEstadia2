@@ -1,1 +1,56 @@
-<p>login works!</p>
+<nz-layout class="layout">
+  <nz-header>
+    <div class="logo">
+      <!-- <img src="assets/logo/logo.svg" alt="logo" /> -->
+    </div>
+    <ul nz-menu nzTheme="dark" nzMode="horizontal">
+      <li nz-menu-item>
+        <a routerLink="/">Convocatorias</a>
+      </li>
+    </ul>
+  </nz-header>
+  <nz-content>
+    <div class="inner-content">
+      <h2 style="text-align: center">Iniciar sesión</h2>
+      <form
+        nz-form
+        [formGroup]="validateForm"
+        class="login-form"
+        (ngSubmit)="submitForm()"
+      >
+        <nz-form-item>
+          <nz-form-control nzErrorTip="¡Ingresa usuario un valido!">
+            <nz-input-group nzPrefixIcon="user">
+              <input
+                type="text"
+                nz-input
+                formControlName="username"
+                placeholder="Usuario"
+              />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-control nzErrorTip="¡Ingresa una contraseña valida!">
+            <nz-input-group nzPrefixIcon="lock">
+              <input
+                type="password"
+                nz-input
+                formControlName="password"
+                placeholder="Contraseña"
+              />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+        <button
+          nz-button
+          class="login-form-button login-form-margin"
+          [nzType]="'primary'"
+        >
+          Iniciar sesión
+        </button>
+      </form>
+    </div>
+  </nz-content>
+  <nz-footer>UPQ ©{{ currentYear }} | Todos los Derechos Reservados</nz-footer>
+</nz-layout>

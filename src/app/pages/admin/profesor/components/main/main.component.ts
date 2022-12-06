@@ -1,48 +1,57 @@
-import { Component, OnInit } from '@angular/core';
-import { ProfesorService } from '../../services/profesor.service';
-import { ProfesorInterface } from '../../interfaces/profesor';
-import { NzDrawerRef, NzDrawerService } from 'ng-zorro-antd/drawer';
+import { Component, OnInit } from "@angular/core";
+import { ProfesorService } from "../../services/profesor.service";
+import { ProfesorInterface } from "../../interfaces/profesor";
+import { NzDrawerRef, NzDrawerService } from "ng-zorro-antd/drawer";
 
 @Component({
-  selector: 'app-main',
-  templateUrl: './main.component.html',
-  styleUrls: ['./main.component.css']
+  selector: "app-main",
+  templateUrl: "./main.component.html",
+  styleUrls: ["./main.component.css"],
 })
 export class MainComponent implements OnInit {
-
-  constructor(private profesorService: ProfesorService, private drawerService: NzDrawerService) { }
-
-  dataSet: ProfesorInterface[] = []
-  drawerRef : NzDrawerRef
+  dataSet: ProfesorInterface[] = [];
+  drawerRef!: NzDrawerRef;
+  data!: ProfesorInterface;
+  constructor(
+    private profesorService: ProfesorService,
+    private drawerService: NzDrawerService
+  ) {}
 
   ngOnInit(): void {
-  this.getData()
+    this.getData();
   }
 
-  getData(): void {
-  	this.profesorService.getAll().subscribe(
-  		resp => this.dataSet = resp["data"],
-  		error => console.error('error al obtener los profesores.', error)
-  	)
+  getData() {
+    this.profesorService.getAll().subscribe(
+      (data: any) => {
+        this.dataSet = data["data"];
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
-  
-  openDrawer(content:any, title:string, data:ProfesorInterface): void {
-	 this.drawerRef = this.drawerService.create({
-      nzContent: content,
+
+  delete(id: number) {
+    this.profesorService.deleteProfesor(id).subscribe();
+    this.getData();
+  }
+
+  openDrawer(content: any, title: string, data: any) {
+    this.data = data;
+    this.drawerRef = this.drawerService.create({
       nzTitle: title,
-      nzWidht: '70vw',
-      nzClosable: false
-   });
-   this.drawerRef.afterClose.subscribe(() => this.getData());
- }
+      nzContent: content,
+      nzWidth: "70vw",
+      nzClosable: false,
+    });
 
- closeDrawer() {
+    this.drawerRef.afterClose.subscribe(() => {
+      this.getData();
+    });
+  }
+
+  close(e: any) {
     this.drawerRef.close();
- }
-
-delete(id:number): void {
-  this.profesorService.deleteProfesor(id).subscribe()
+  }
 }
-
-}
-
